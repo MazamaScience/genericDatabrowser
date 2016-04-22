@@ -1,0 +1,167 @@
+/* COMPONENTS ................................................................*/
+
+/* Specific components */
+
+/* Header */
+
+/* Navbar */
+
+/* Controls */
+
+/* Plots */
+
+.popup-wrapper {
+  pointer-events: none;
+  opacity: 0;
+  position: relative;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 999;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.popup {
+  margin-top: 50px;
+}
+
+.plot-loading {
+  margin-top: 2.47em;
+}
+
+.plot-error {
+  border-top: 5px solid $red;
+  border-bottom: 5px solid $red;
+}
+
+.plot-error h4 {
+  background-color: $red;
+  padding: 0.5em;
+  margin: 0;
+  color: white;
+}
+
+.plot-image {
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
+  padding: 0.5em;
+  /* ie8 */
+  cursor: pointer;
+  display: block;
+  margin: auto;
+}
+
+
+/* Mapping */
+
+.google-map {
+  height: 350px;
+}
+
+
+/* ANIMATIONS ................................................................*/
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+}
+
+.visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.shadow {
+  -webkit-transition: box-shadow 0.2s linear;
+  -moz-transition: box-shadow 0.2 linear;
+  transition: box-shadow 0.2s linear;
+}
+
+.shadow:hover {
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow:    0px 4px 4px 0px rgba(50, 50, 50, 0.2);
+  box-shadow:         0px 4px 4px 0px rgba(50, 50, 50, 0.2);
+}
+
+/* SPINNER ................................................................*/
+
+.spinner {
+  margin: 0 auto 0;
+  width: 100px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner-light > div {
+  background-color: white;
+}
+
+.spinner-dark > div {
+  background-color: #primary-color;/*mainlight*/
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

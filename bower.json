@@ -1,0 +1,17 @@
+{
+  "name": "GenericDatabrowser",
+  "version": "2.0.1",
+  "authors": [
+    "Mazama Science"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "angular": "~1.4.8",
+    "ng-maps": "*",
+    "angular-bootstrap": "~1.0.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-slider": "~0.3.2",
+    "bootstrap": "~3.3.6"
+  }
+}

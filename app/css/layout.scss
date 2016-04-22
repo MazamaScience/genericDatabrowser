@@ -1,0 +1,78 @@
+/* OBJECTS ...................................................................*/
+/* Abstract classes */
+
+.no-margin {
+  margin: 0;
+}
+
+.margin-sm {
+  margin-bottom: 0.85em;
+}
+
+.margin-md {
+  margin-bottom: 1.621em;
+}
+
+.margin-lg {
+  margin-bottom: 3.24em;
+}
+
+.margin-xl {
+  margin-bottom: 7.5em;
+}
+
+.tall {
+  height:100%;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.push-right {
+  margin-left: 15px;
+  margin-right: -15px;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.faded {
+  color: #ddd;
+}
+
+.grey {
+  background-color: $grey-lightest;
+  padding: 0.81em 0;
+}
+
+.fade-animate.ng-hide-remove, .face.ng-show-add{
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+ 
+.fade-animate.ng-hide-add, .fade.ng-show-remove{
+    -webkit-animation: fadeOut 0.3s;
+    animation: fadeOut 0.3s;
+    display: block !important;
+}
+
+/*text-heavy pages should use this class for better formatting*/
+.text-document p {
+  font-size: 1.4em;
+  margin-bottom: 2.7em;
+}
+
+.text-document h1 {
+  margin-bottom: 1.621em;
+}
+
+.text-document img {
+  width: 100%;
+  margin-bottom: 0.85em;
+}
+
+.text-document .caption {
+  font-style: italic;
+}
