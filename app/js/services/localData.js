@@ -12,13 +12,10 @@
   function DataService() {
 
     var request = {
-      language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
       trigFunction: "cos",
       lineColor: "black",
-      lat: 47,
-      lng: -122,
       cycles: 3
     };
 
@@ -57,34 +54,9 @@
       }]
     };
 
-    var map = function($scope) {
-      return {
-        center: [47, -122],
-        zoom: 4,
-        events: {
-          click: function(e) {
-            factory.request.lat = Math.round(Math.pow(10,4) * e.latLng.lat()) / Math.pow(10,4);
-            factory.request.lng = Math.round(Math.pow(10,4) * e.latLng.lng()) / Math.pow(10,4);
-            $scope.$apply();
-          }
-        }
-      };
-    };
-
-    var marker = {
-      options: function() {
-        return {
-          draggable: true
-        };
-      },
-      decimals: 4
-    };
-
     var factory = {
       request: request,
       forms: forms,
-      map: map,
-      marker: marker
     };
     
     return factory;

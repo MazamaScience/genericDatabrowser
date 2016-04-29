@@ -7,7 +7,7 @@
 
     <!-- left column: plot controls, map -->
 
-    <div class="col-sm-6 col-md-5">
+    <div class="col-sm-12 col-md-12">
 
       <!-- plot controls -->
 
@@ -43,58 +43,6 @@
       <!-- mapping -->
 
       <div class="row margin-md grey">
-
-        <div class="col-xs-6 margin-sm">
-          <div class="input-group">
-            <input ng-model="main.request.lng" type="text" class="form-control">
-            <div class="input-group-addon">East</div>
-          </div>
-        </div>
-    
-      <!-- longitude -->
-
-        <div class="col-xs-6 margin-sm">
-          <div class="input-group">
-            <input ng-model="main.request.lat" type="text" class="form-control">
-            <div class="input-group-addon">North</div>
-          </div>
-        </div>  
-
-        <div class="col-sm-12">
-
-          <!-- google map directive -->
-          
-          <map
-            ng-transclude 
-            class="google-map margin-sm" 
-            center="main.map.center" 
-            zoom="main.map.zoom"
-            events="main.map.events">
-
-            <marker 
-              lat="main.request.lat" 
-              lng="main.request.lng" 
-              options="main.marker.options"
-              decimals="main.marker.decimals">
-            </marker>
-
-          </map>
-
-        </div>
-
-      </div>
-
-      <!-- end left column -->
-
-    </div>
-
-
-
-
-
-    <!-- right column: plots -->
-
-    <div class="col-sm-6 col-md-offset-1">
 
       <div class="row margin-md">
 
@@ -138,13 +86,11 @@
 
       </div>
 
-      <!-- end right column -->
+      </div>
+
+      <!-- end left column -->
 
     </div>
-
-
-
-
 
     <!-- end container -->
  

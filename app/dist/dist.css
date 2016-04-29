@@ -94,10 +94,6 @@ code {
   display: block;
   margin: auto; }
 
-/* Mapping */
-.google-map {
-  height: 350px; }
-
 /* ANIMATIONS ................................................................*/
 @-webkit-keyframes fadeIn {
   0% {

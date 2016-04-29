@@ -35,7 +35,7 @@
 })();
 // Main controller
 // Exposes the model to the template
-// Contains plot options, map, and overlay options
+// Contains plot options and overlay options
 
 (function() {
   'use strict';
@@ -53,11 +53,6 @@
     vm.request = DataService.request;
 
     vm.forms = DataService.forms;
-
-    // ng-maps
-    vm.map = DataService.map($scope);
-    vm.map.events = vm.map.events;
-    vm.marker = DataService.marker;
 
     vm.updatePlot = updatePlot;                 
     vm.status = RequestService.status;          // request status and results
@@ -197,13 +192,10 @@ angular.module('App')
   function DataService() {
 
     var request = {
-      language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
       trigFunction: "cos",
       lineColor: "black",
-      lat: 47,
-      lng: -122,
       cycles: 3
     };
 
@@ -242,34 +234,9 @@ angular.module('App')
       }]
     };
 
-    var map = function($scope) {
-      return {
-        center: [47, -122],
-        zoom: 4,
-        events: {
-          click: function(e) {
-            factory.request.lat = Math.round(Math.pow(10,4) * e.latLng.lat()) / Math.pow(10,4);
-            factory.request.lng = Math.round(Math.pow(10,4) * e.latLng.lng()) / Math.pow(10,4);
-            $scope.$apply();
-          }
-        }
-      };
-    };
-
-    var marker = {
-      options: function() {
-        return {
-          draggable: true
-        };
-      },
-      decimals: 4
-    };
-
     var factory = {
       request: request,
       forms: forms,
-      map: map,
-      marker: marker
     };
     
     return factory;

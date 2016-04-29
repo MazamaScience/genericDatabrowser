@@ -1,6 +1,6 @@
 // Main controller
 // Exposes the model to the template
-// Contains plot options, map, and overlay options
+// Contains plot options and overlay options
 
 (function() {
   'use strict';
@@ -18,11 +18,6 @@
     vm.request = DataService.request;
 
     vm.forms = DataService.forms;
-
-    // ng-maps
-    vm.map = DataService.map($scope);
-    vm.map.events = vm.map.events;
-    vm.marker = DataService.marker;
 
     vm.updatePlot = updatePlot;                 
     vm.status = RequestService.status;          // request status and results
