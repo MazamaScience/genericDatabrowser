@@ -60,7 +60,7 @@ install_UI: FORCE
 	# copy files and directories into installation directory
 	mkdir -p $(DATABROWSER_PATH)
 	sed $(DATABROWSER_SED_SCRIPT) app/index.html > $(DATABROWSER_PATH)/index.html
-	cp -r R app/partials app/css/images $(DATABROWSER_PATH)
+	cp -r R app/partials app/images $(DATABROWSER_PATH)
 	rm -rf $(DATABROWSER_PATH)/R/packages
 	# remove subversion directories
 	-find $(DATABROWSER_PATH) -depth -name .svn -exec rm -rf {} \;
@@ -79,9 +79,9 @@ install_UI: FORCE
                 sed $(CACHE_SIZE_SED_SCRIPT) >  $(CGI_PATH)/$(DATABROWSER).cgi
 	-chown $(OWNERSHIP) $(CGI_PATH)/$(DATABROWSER).cgi
 	-chmod 755 $(CGI_PATH)/$(DATABROWSER).cgi
-	cp -r app/build $(DATABROWSER_PATH)
-	sed $(DATABROWSER_SED_SCRIPT) app/build/build.js > $(DATABROWSER_PATH)/build/build.js
-	sed $(DATABROWSER_SED_SCRIPT) app/build/build.min.js > $(DATABROWSER_PATH)/build/build.min.js
+	cp -r app/dist $(DATABROWSER_PATH)
+	sed $(DATABROWSER_SED_SCRIPT) app/dist/dist.js > $(DATABROWSER_PATH)/dist/dist.js
+	sed $(DATABROWSER_SED_SCRIPT) app/dist/dist.min.js > $(DATABROWSER_PATH)/dist/dist.min.js
 	# make debugging files
 	touch $(DATABROWSER_PATH)/TRANSCRIPT.txt
 	touch $(DATABROWSER_PATH)/DEBUG.txt

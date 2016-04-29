@@ -25,19 +25,19 @@ gulp.task('lint', function() {
 gulp.task('scripts', function() {
   return gulp.src('app/js/**/*.js')
     .pipe(replace("$VERSION", version))
-    .pipe(concat('build.js'))
-    .pipe(gulp.dest('app/build'))
-    .pipe(rename('build.min.js'))
+    .pipe(concat('dist.js'))
+    .pipe(gulp.dest('app/dist'))
+    .pipe(rename('dist.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('app/build'));
+    .pipe(gulp.dest('app/dist'));
 });
 
 // Concat and Minify SCSS files
 gulp.task('css', function() {
   return gulp.src('app/css/*.scss')
-    .pipe(concat('build.css'))
+    .pipe(concat('dist.css'))
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('app/build'));
+    .pipe(gulp.dest('app/dist'));
 });
 
 // Concat and Minify JS dependencies
@@ -49,10 +49,10 @@ gulp.task('script-dependencies', function() {
       'bower_components/angular-slider/dist/slider.js'],
       {base: 'bower_components/'})
     .pipe(concat('dependencies.js'))
-    .pipe(gulp.dest('app/build'))
+    .pipe(gulp.dest('app/dist'))
     .pipe(rename('dependencies.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('app/build'));
+    .pipe(gulp.dest('app/dist'));
 });
 
 // Concat and Minify CSS dependencies
@@ -61,7 +61,7 @@ gulp.task('css-dependencies', function() {
       'bower_components/angular-slider/dist/slider.css'],
       {base: 'bower_components/'})
     .pipe(concat('dependencies.css'))
-    .pipe(gulp.dest('app/build'));
+    .pipe(gulp.dest('app/dist'));
 });
 
 // Default Task
