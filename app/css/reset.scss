@@ -11,25 +11,25 @@
 
 /* adds standard blue to buttons */
 .btn-primary {
-  background-color: $primary-color;/*mainlight*/
+  background-color: $primary-color;/* mainlight */
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active {
-  background-color: $primary-color-dark;/*maindark*/
+  background-color: $primary-color-dark;/* maindark */
 }
 
 .btn-danger {
-  background-color: $red; /*dangerlight*/
+  background-color: $red; /* dangerlight */
 }
 
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:active,
 .btn-danger.active {
-  background-color: $red-dark;/*dangerdark*/
+  background-color: $red-dark;/* dangerdark */
 }
 
 
@@ -48,7 +48,7 @@ div.btn-group .btn {
 
 .dropdown-menu>li>a:hover {
   color: white;
-  background-color: $primary-color;/*mainlight*/
+  background-color: $primary-color;/* mainlight */
 }
 
 .btn-group .caret {

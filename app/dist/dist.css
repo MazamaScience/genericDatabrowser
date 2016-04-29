@@ -1,20 +1,22 @@
-/* VARIABLES ..................................................................... */
-/* Unclasses elements */
+/* SASS VARIABLES ..................................................................... */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* potential fonts */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* potential colors */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* selected colors */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* ELEMENTS ..................................................................... */
-/* Unclasses elements */
+/* CSS SELECTORS ..................................................................... */
+/* unclassed elements ; general website style/format */
 html {
   width: 100%;
   height: 100%;
   margin: 0; }
 
 body {
-  font-family: "Source Sans Pro", "Helvetica", sans-serif;
+  font-family: "Times New Roman", "Source Sans Pro", "Helvetica", sans-serif;
   font-weight: normal;
   width: 100%;
   height: 100%;
@@ -163,7 +165,7 @@ code {
 
 .spinner-dark > div {
   background-color: #primary-color;
-  /*mainlight*/ }
+  /* mainlight */ }
 
 .spinner .bounce1 {
   -webkit-animation-delay: -0.32s;
@@ -188,7 +190,10 @@ code {
     -webkit-transform: scale(1); } }
 
 /* OBJECTS ...................................................................*/
-/* Abstract classes */
+/* abstract classes ; custom website style/format */
+/* for custom style/format, assign these classes to HTML tags */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* different margin sizes */
 .no-margin {
   margin: 0; }
 
@@ -204,9 +209,7 @@ code {
 .margin-xl {
   margin-bottom: 7.5em; }
 
-.tall {
-  height: 100%; }
-
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 .no-padding {
   padding: 0; }
 
@@ -224,16 +227,18 @@ code {
   background-color: #ECECEC;
   padding: 0.81em 0; }
 
+/* -webkit-animation and animation are a set ; they allow animations in CSS */
 .fade-animate.ng-hide-remove, .face.ng-show-add {
   -webkit-animation: fadeIn 0.3s;
   animation: fadeIn 0.3s; }
 
+/* !important overrides all other attempts to style the particular element */
 .fade-animate.ng-hide-add, .fade.ng-show-remove {
   -webkit-animation: fadeOut 0.3s;
   animation: fadeOut 0.3s;
   display: block !important; }
 
-/*text-heavy pages should use this class for better formatting*/
+/* text-heavy pages should use this class for better formatting */
 .text-document p {
   font-size: 1.4em;
   margin-bottom: 2.7em; }
@@ -258,25 +263,25 @@ code {
 /* adds standard blue to buttons */
 .btn-primary {
   background-color: #64BCE2;
-  /*mainlight*/ }
+  /* mainlight */ }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active {
   background-color: #5292C1;
-  /*maindark*/ }
+  /* maindark */ }
 
 .btn-danger {
   background-color: #EF4836;
-  /*dangerlight*/ }
+  /* dangerlight */ }
 
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:active,
 .btn-danger.active {
   background-color: #BC5050;
-  /*dangerdark*/ }
+  /* dangerdark */ }
 
 /* dropdown overwrites */
 div.btn-group {
@@ -291,7 +296,7 @@ div.btn-group .btn {
 .dropdown-menu > li > a:hover {
   color: white;
   background-color: #64BCE2;
-  /*mainlight*/ }
+  /* mainlight */ }
 
 .btn-group .caret {
   float: right;
@@ -482,6 +487,10 @@ slider div.handle, [slider] div.handle {
 slider div.handle:after, [slider] div.handle:after {
   display: none; }
 
+/* SASS VARIABLES ..................................................................... */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* potential fonts */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* potential colors */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
