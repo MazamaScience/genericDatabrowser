@@ -333,17 +333,35 @@ code {
 .no-margin {
   margin: 0; }
 
+.clear-margin {
+  margin-left: 0em;
+  margin-right: 0em; }
+
 .margin-sm {
-  margin-bottom: 0.85em; }
+  margin-left: 0.425em;
+  margin-bottom: 0.85em;
+  margin-right: 0.425em; }
 
 .margin-md {
-  margin-bottom: 1.621em; }
+  margin-left: 0.8105em;
+  margin-bottom: 1.621em;
+  margin-right: 0.8105em; }
 
 .margin-lg {
   margin-bottom: 3.24em; }
 
 .margin-xl {
-  margin-bottom: 7.5em; }
+  margin-left: 3.75em;
+  margin-bottom: 7.5em;
+  margin-right: 3.75em; }
+
+.padding {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.spacing {
+  margin-left: 15px;
+  margin-right: 15px; }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 .no-padding {
@@ -388,6 +406,10 @@ code {
 
 .text-document .caption {
   font-style: italic; }
+
+.vcenter {
+  display: flex;
+  align-items: center; }
 
 /* COMPONENTS ................................................................*/
 /* Specific components */

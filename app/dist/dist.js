@@ -21,11 +21,11 @@
     $stateProvider
       .state("index", {
         url: "/",
-        templateUrl: "partials/main.html"
+        templateUrl: "html/main.html"
       })
       .state("about", {
         url: "/about",
-        templateUrl: "partials/about.html"
+        templateUrl: "html/about.html"
       });
 
     $urlRouterProvider.otherwise("/");
