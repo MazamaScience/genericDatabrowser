@@ -1,5 +1,8 @@
-// I store all of the in memory data here. Controllers pull from and modify
-// this data.
+/* ============================================================================
+ * services/localData.js -- Service for storing internal data.
+ * 
+ * Controllers pull from and modify this data.
+ */
 
 (function() {
   'use strict';
@@ -7,11 +10,19 @@
   angular.module('App')
     .factory('DataService', DataService);
 
+  // Dependency Injection:
+  //   None
   DataService.$inject = [];
 
   function DataService() {
 
-    var request = {
+    // ------------------------------------------------------------------------
+    //     BEGIN localData definition     -------------------------------------
+
+    var Factory = this;
+
+    // DataService internal data arrays
+    Factory.request = {
       language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
@@ -20,7 +31,7 @@
       cycles: 3
     };
 
-    var forms = {
+    Factory.forms = {
       trigFunctions: [{
         text: "Cosine",
         value: "cos"
@@ -55,12 +66,10 @@
       }]
     };
 
-    var factory = {
-      request: request,
-      forms: forms
-    };
-    
-    return factory;
+    return Factory;
+
+    //     END localData definition     ---------------------------------------
+    // ------------------------------------------------------------------------
 
   }
 
