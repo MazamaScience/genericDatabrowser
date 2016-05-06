@@ -1,8 +1,5 @@
-/* ============================================================================
- * services/RequestService.js -- Service for making JSON requests
- * 
- * Also provides access to the request status, i.e. loading or error messages.
- */
+// Service for making JSON requests. Also provides access to the request status, i.e. 
+// loading or error messages
 
 (function() {
   'use strict';
@@ -10,40 +7,32 @@
   angular.module('App')
     .factory('RequestService', RequestService);
 
-  // Dependency Injection:
-  //   http and q -- requesting data
   RequestService.$inject = ['$http', '$q'];
     
   function RequestService($http, $q) {
 
-    // ------------------------------------------------------------------------
-    //     BEGIN RequestService definition     --------------------------------
-
-    var Factory = this;
-
     // Databrowser cgi url, this is always the same
-    Factory.url = '/cgi-bin/__DATABROWSER__.cgi?';
+    var url = '/cgi-bin/__DATABROWSER__.cgi?';
 
-    // RequestService internal data arrays
-    Factory.status = {
+    // Current status
+    var status = {
       loading: false,
       error: false
     };
 
-    // RequestService public methods
-    Factory.get = get;
+    var factory = {
+      status: getStatus,
+      get: get
+    };
 
-    return Factory;
-
-    //     END DataService definition     -------------------------------------
-    // ------------------------------------------------------------------------
+    return factory;
 
     ///////////////
     ///////////////
     ///////////////
 
     function getStatus() {
-      return Factory.status;
+      return status;
     }
 
     // Serialize object
@@ -66,9 +55,9 @@
     // Success handling. This includes handling errors that are
     // successfuly returned.
     function success(response) {
-      Factory.status.loading = false;
+      status.loading = false;
       if (response.data.status === "ERROR") {
-        Factory.status.error = response.data.error_text;
+        status.error = response.data.error_text;
         return ($q.reject(response.data.error_text));
       }
       return (response);
@@ -76,11 +65,11 @@
 
     // Make a json request with an object of data
     function get(data) {
-      Factory.status.loading = true;
-      Factory.status.error = false;
+      status.loading = true;
+      status.error = false;
       var request = $http({
         method: 'POST',
-        url: Factory.url + serialize(data)
+        url: url + serialize(data)
       });
       return (request.then(success, error));
     }
