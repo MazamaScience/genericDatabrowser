@@ -6,11 +6,11 @@
   'use strict';
 
   angular.module('App')
-    .controller('Main', Main);
+    .controller('MainCtrl', MainCtrl);
 
-  Main.$inject = ['$scope', 'DataService', 'RequestService', '$location'];
+  MainCtrl.$inject = ['$scope', 'DataService', 'RequestService', '$location'];
 
-  function Main($scope, DataService, RequestService, $location) {
+  function MainCtrl($scope, DataService, RequestService, $location) {
 
     // vm stands for view model
     var vm = this;
