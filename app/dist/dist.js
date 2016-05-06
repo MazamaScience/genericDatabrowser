@@ -180,11 +180,8 @@ angular.module('App')
     };
 
   });
-/* ============================================================================
- * services/localData.js -- Service for storing internal data.
- * 
- * Controllers pull from and modify this data.
- */
+// I store all of the in memory data here. Controllers pull from and modify
+// this data.
 
 (function() {
   'use strict';
@@ -192,19 +189,11 @@ angular.module('App')
   angular.module('App')
     .factory('DataService', DataService);
 
-  // Dependency Injection:
-  //   None
   DataService.$inject = [];
 
   function DataService() {
 
-    // ------------------------------------------------------------------------
-    //     BEGIN localData definition     -------------------------------------
-
-    var Factory = this;
-
-    // DataService internal data arrays
-    Factory.request = {
+    var request = {
       language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
@@ -213,7 +202,7 @@ angular.module('App')
       cycles: 3
     };
 
-    Factory.forms = {
+    var forms = {
       trigFunctions: [{
         text: "Cosine",
         value: "cos"
@@ -248,20 +237,19 @@ angular.module('App')
       }]
     };
 
-    return Factory;
-
-    //     END localData definition     ---------------------------------------
-    // ------------------------------------------------------------------------
+    var factory = {
+      request: request,
+      forms: forms
+    };
+    
+    return factory;
 
   }
 
 })();
 
-/* ============================================================================
- * services/RequestService.js -- Service for making JSON requests
- * 
- * Also provides access to the request status, i.e. loading or error messages.
- */
+// Service for making JSON requests. Also provides access to the request status, i.e. 
+// loading or error messages
 
 (function() {
   'use strict';
@@ -269,40 +257,32 @@ angular.module('App')
   angular.module('App')
     .factory('RequestService', RequestService);
 
-  // Dependency Injection:
-  //   http and q -- requesting data
   RequestService.$inject = ['$http', '$q'];
     
   function RequestService($http, $q) {
 
-    // ------------------------------------------------------------------------
-    //     BEGIN RequestService definition     --------------------------------
-
-    var Factory = this;
-
     // Databrowser cgi url, this is always the same
-    Factory.url = '/cgi-bin/__DATABROWSER__.cgi?';
+    var url = '/cgi-bin/__DATABROWSER__.cgi?';
 
-    // RequestService internal data arrays
-    Factory.status = {
+    // Current status
+    var status = {
       loading: false,
       error: false
     };
 
-    // RequestService public methods
-    Factory.get = get;
+    var factory = {
+      status: getStatus,
+      get: get
+    };
 
-    return Factory;
-
-    //     END DataService definition     -------------------------------------
-    // ------------------------------------------------------------------------
+    return factory;
 
     ///////////////
     ///////////////
     ///////////////
 
     function getStatus() {
-      return Factory.status;
+      return status;
     }
 
     // Serialize object
@@ -325,9 +305,9 @@ angular.module('App')
     // Success handling. This includes handling errors that are
     // successfuly returned.
     function success(response) {
-      Factory.status.loading = false;
+      status.loading = false;
       if (response.data.status === "ERROR") {
-        Factory.status.error = response.data.error_text;
+        status.error = response.data.error_text;
         return ($q.reject(response.data.error_text));
       }
       return (response);
@@ -335,11 +315,11 @@ angular.module('App')
 
     // Make a json request with an object of data
     function get(data) {
-      Factory.status.loading = true;
-      Factory.status.error = false;
+      status.loading = true;
+      status.error = false;
       var request = $http({
         method: 'POST',
-        url: Factory.url + serialize(data)
+        url: url + serialize(data)
       });
       return (request.then(success, error));
     }
