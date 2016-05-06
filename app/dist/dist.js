@@ -180,8 +180,11 @@ angular.module('App')
     };
 
   });
-// I store all of the in memory data here. Controllers pull from and modify
-// this data.
+/* ============================================================================
+ * services/localData.js -- Service for storing internal data.
+ * 
+ * Controllers pull from and modify this data.
+ */
 
 (function() {
   'use strict';
@@ -189,11 +192,19 @@ angular.module('App')
   angular.module('App')
     .factory('DataService', DataService);
 
+  // Dependency Injection:
+  //   None
   DataService.$inject = [];
 
   function DataService() {
 
-    var request = {
+    // ------------------------------------------------------------------------
+    //     BEGIN localData definition     -------------------------------------
+
+    var Factory = this;
+
+    // DataService internal data arrays
+    Factory.request = {
       language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
@@ -202,7 +213,7 @@ angular.module('App')
       cycles: 3
     };
 
-    var forms = {
+    Factory.forms = {
       trigFunctions: [{
         text: "Cosine",
         value: "cos"
@@ -237,19 +248,20 @@ angular.module('App')
       }]
     };
 
-    var factory = {
-      request: request,
-      forms: forms
-    };
-    
-    return factory;
+    return Factory;
+
+    //     END localData definition     ---------------------------------------
+    // ------------------------------------------------------------------------
 
   }
 
 })();
 
-// Service for making JSON requests. Also provides access to the request status, i.e. 
-// loading or error messages
+/* ============================================================================
+ * services/RequestService.js -- Service for making JSON requests
+ * 
+ * Also provides access to the request status, i.e. loading or error messages.
+ */
 
 (function() {
   'use strict';
@@ -257,32 +269,40 @@ angular.module('App')
   angular.module('App')
     .factory('RequestService', RequestService);
 
+  // Dependency Injection:
+  //   http and q -- requesting data
   RequestService.$inject = ['$http', '$q'];
     
   function RequestService($http, $q) {
 
-    // Databrowser cgi url, this is always the same
-    var url = '/cgi-bin/__DATABROWSER__.cgi?';
+    // ------------------------------------------------------------------------
+    //     BEGIN RequestService definition     --------------------------------
 
-    // Current status
-    var status = {
+    var Factory = this;
+
+    // Databrowser cgi url, this is always the same
+    Factory.url = '/cgi-bin/__DATABROWSER__.cgi?';
+
+    // RequestService internal data arrays
+    Factory.status = {
       loading: false,
       error: false
     };
 
-    var factory = {
-      status: getStatus,
-      get: get
-    };
+    // RequestService public methods
+    Factory.get = get;
 
-    return factory;
+    return Factory;
+
+    //     END DataService definition     -------------------------------------
+    // ------------------------------------------------------------------------
 
     ///////////////
     ///////////////
     ///////////////
 
     function getStatus() {
-      return status;
+      return Factory.status;
     }
 
     // Serialize object
@@ -305,9 +325,9 @@ angular.module('App')
     // Success handling. This includes handling errors that are
     // successfuly returned.
     function success(response) {
-      status.loading = false;
+      Factory.status.loading = false;
       if (response.data.status === "ERROR") {
-        status.error = response.data.error_text;
+        Factory.status.error = response.data.error_text;
         return ($q.reject(response.data.error_text));
       }
       return (response);
@@ -315,11 +335,11 @@ angular.module('App')
 
     // Make a json request with an object of data
     function get(data) {
-      status.loading = true;
-      status.error = false;
+      Factory.status.loading = true;
+      Factory.status.error = false;
       var request = $http({
         method: 'POST',
-        url: url + serialize(data)
+        url: Factory.url + serialize(data)
       });
       return (request.then(success, error));
     }
