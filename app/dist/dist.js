@@ -33,9 +33,10 @@
   }
 
 })();
+
 // Main controller
 // Exposes the model to the template
-// Contains plot options and overlay options
+// Contains plot options, and overlay options
 
 (function() {
   'use strict';
@@ -119,6 +120,7 @@
   }
 
 })();
+
 // Creates a full page popup that fades out when clicked
 // Relies on CSS rules from Mazama_databrowser_base.css
 // There should be no need to make changes to this
@@ -192,6 +194,7 @@ angular.module('App')
   function DataService() {
 
     var request = {
+      language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
       trigFunction: "cos",
@@ -236,7 +239,7 @@ angular.module('App')
 
     var factory = {
       request: request,
-      forms: forms,
+      forms: forms
     };
     
     return factory;
@@ -244,6 +247,7 @@ angular.module('App')
   }
 
 })();
+
 // Service for making JSON requests. Also provides access to the request status, i.e. 
 // loading or error messages
 

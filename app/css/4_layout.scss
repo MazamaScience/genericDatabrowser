@@ -1,52 +1,27 @@
 /* OBJECTS ...................................................................*/
-/* abstract classes ; custom website style/format */
+/* abstract classes; custom website style/format */
 /* for custom style/format, assign these classes to HTML tags */
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* different margin sizes */
 .no-margin {
   margin: 0;
 }
 
-.clear-margin {
-    margin-left: 0em;
-    margin-right: 0em;
-}
-
 .margin-sm {
-  margin-left: 0.425em;
   margin-bottom: 0.85em;
-  margin-right: 0.425em;
 }
 
 .margin-md {
-  margin-left: 0.8105em;
   margin-bottom: 1.621em;
-  margin-right: 0.8105em;
 }
 
 .margin-lg {
-  
   margin-bottom: 3.24em;
-  
 }
 
 .margin-xl {
-  margin-left: 3.75em;
   margin-bottom: 7.5em;
-  margin-right: 3.75em;
 }
-
-.padding {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.spacing {
-    margin-left: 15px;
-    margin-right: 15px
-}
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .no-padding {
   padding: 0;
@@ -70,12 +45,12 @@
   padding: 0.81em 0;
 }
 
-/* -webkit-animation and animation are a set ; they allow animations in CSS */
+/* -webkit-animation and animation are a set; they allow animations in CSS */
 .fade-animate.ng-hide-remove, .face.ng-show-add{
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
-
+ 
 /* !important overrides all other attempts to style the particular element */
 .fade-animate.ng-hide-add, .fade.ng-show-remove{
     -webkit-animation: fadeOut 0.3s;
@@ -100,9 +75,4 @@
 
 .text-document .caption {
   font-style: italic;
-}
-
-.vcenter {
-    display: flex;
-    align-items: center;
 }

@@ -1,15 +1,11 @@
 
-/* SASS VARIABLES ..................................................................... */
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* potential fonts */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
+/* SASS VARIABLES ........................................................... */
 
 $font-stack: 'Source Sans Pro', 'Helvetica', sans-serif;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* potential colors */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 $green: #4DAF7C;
 $green-dark: #458C66;
@@ -30,7 +26,7 @@ $grey-darkest: #333;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* selected colors */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 $primary-color: $blue;
 $primary-color-dark: $blue-dark;
@@ -41,8 +37,8 @@ $danger-dark: $red-dark;
 
 
 
-/* CSS SELECTORS ..................................................................... */
-/* unclassed elements ; general website style/format */
+/* CSS SELECTORS ............................................................ */
+/* unclassed elements; general website style/format */
 
 html {
   width: 100%;

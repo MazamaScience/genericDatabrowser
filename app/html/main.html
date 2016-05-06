@@ -1,54 +1,108 @@
 
-<!-- main container -->
+  <!-- main container -->
 
-<div class="container" ng-controller="Main as main" ng-cloak>
-    <div class="row grey vcenter">
+  <div class="container" ng-controller="Main as main" ng-cloak>
 
-    <!-- left column: plot controls -->
-    <div class="col-sm-6 col-md-6 padding">
-        <!-- plot controls -->
-        <label>Trig Function</label>
-        <select-menu model="main.request.trigFunction" options="main.forms.trigFunctions"></select-menu>
+ 
 
-        <label>Line Color</label>
-        <select-menu model="main.request.lineColor" options="main.forms.lineColors"></select-menu>
+    <!-- left column: plot controls, map -->
 
-        <label>X-Max</label>
-        <slider floor="1" ceiling="50" ng-model="main.request.cycles"></slider>
+    <div class="col-sm-6 col-md-5">
 
-        <button class="btn btn-primary btn-block" ng-click="main.updatePlot()">Update Plot</button>  
+      <!-- plot controls -->
+
+      <div class="row margin-md grey">
+
+        <div class="col-lg-4 margin-sm">
+          <label>Trig Function</label>
+
+
+          <select-menu model="main.request.trigFunction" options="main.forms.trigFunctions"></select-menu>
+
+
+        </div>
+
+        <div class="col-lg-4 margin-sm">
+          <label>Line Color</label>
+
+          <select-menu model="main.request.lineColor" options="main.forms.lineColors"></select-menu>
+
+        </div>
+
+        <div class="col-lg-4 margin-sm">
+          <label>X-Max</label>
+          <slider floor="1" ceiling="50" ng-model="main.request.cycles"></slider>
+        </div>
+
+        <div class="col-lg-4 col-lg-offset-8">
+          <button class="btn btn-primary btn-block" ng-click="main.updatePlot()">Update Plot</button>  
+        </div>
+
+      </div>
+
+      <!-- end left column -->
+
     </div>
-    <!-- end left column -->
 
-    <!-- right column: output display -->
-        <div class="col-sm-6 col-md-6 padding">
-            <!-- loading screen-->
-            <div class="plot-loading" ng-show="main.status().loading">
-                <div class="spinner spinner-dark">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                </div>
+
+
+
+
+    <!-- right column: plots -->
+
+    <div class="col-sm-6 col-md-offset-1">
+
+      <div class="row margin-md">
+
+        <div class="col-md-12">
+
+          <!-- loading screen-->
+
+          <div class="plot-loading" ng-show="main.status().loading">
+            <div class="spinner spinner-dark">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
             </div>
-            <!-- error message -->
-            <div class="plot-error" ng-show="main.status().error">
-                <h4>ERROR</h4>
-                <p>{{main.status().error}}</p>
-            </div>
-            <!-- plot image -->
-            <img 
+          </div>
+
+          <!-- error message -->
+
+          <div class="plot-error" ng-show="main.status().error">
+            <h4>ERROR</h4>
+            <p>{{main.status().error}}</p>
+          </div>
+
+          <!-- plot image -->
+
+          <img 
             class="plot-image shadow"
             ng-click="main.popup.visible=true" 
             ng-hide="main.status().loading || main.status().error" 
             ng-src="{{main.url && main.url || ''}}" />
-            <!-- popup directive: creates a dark transparent overlay that hides when clicked -->
-            <!-- any html can go inside -->
-            <popup visible="main.popup.visible">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <img class="plot-image" ng-src="{{main.popup.url}}" />
-                </div>
-            </popup>
+
+          <!-- popup directive: creates a dark transparent overlay that hides when clicked -->
+          <!-- any html can go inside -->
+
+          <popup visible="main.popup.visible">
+            <div class="col-sm-6 col-sm-offset-3">
+              <img class="plot-image" ng-src="{{main.popup.url}}" />
+            </div>
+          </popup>
+
         </div>
+
+      </div>
+
+      <!-- end right column -->
+
     </div>
-</div>
-<!-- end container -->
+
+
+
+
+
+    <!-- end container -->
+ 
+  </div>
+

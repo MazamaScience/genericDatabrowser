@@ -1,6 +1,6 @@
 // Main controller
 // Exposes the model to the template
-// Contains plot options and overlay options
+// Contains plot options, and overlay options
 
 (function() {
   'use strict';

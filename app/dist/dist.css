@@ -1,7 +1,5 @@
-/* SASS VARIABLES ..................................................................... */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* SASS VARIABLES ........................................................... */
 /* potential fonts */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* potential colors */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -60,9 +58,9 @@ div.btn-group .btn {
 /* adds standard blue to navbar */
 .navbar-default {
   background-color: #64BCE2;
-  /*mainlight*/
+  /* mainlight */
   border-bottom: 2px solid #5292C1;
-  /*maindark*/
+  /* maindark */
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2); }
 
@@ -98,10 +96,10 @@ div.btn-group .btn {
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:active {
   background-color: #5292C1;
-  /*maindark*/
+  /* maindark */
   color: white; }
 
-/*datepicker*/
+/* datepicker */
 table .btn-default {
   border: none; }
 
@@ -242,49 +240,15 @@ slider div.handle, [slider] div.handle {
 slider div.handle:after, [slider] div.handle:after {
   display: none; }
 
-/* SASS VARIABLES ..................................................................... */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* potential fonts */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
-
-$font-stack: 'Source Sans Pro', 'Helvetica', sans-serif;
-
+/* SASS VARIABLES ........................................................... */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* potential colors */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
-
-$green: #4DAF7C;
-$green-dark: #458C66;
-
-$blue: #64BCE2;
-$blue-dark: #5292C1;
-
-$red: #EF4836;
-$red-dark: #BC5050;
-
-$orange: #F89E3A;
-$orange-dark: #F37721;
-
-$grey-lightest: #ECECEC;
-$grey-light: #D3D3D3;
-$grey-dark: #666;
-$grey-darkest: #333;
-
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* selected colors */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ *
-
-$primary-color: $blue;
-$primary-color-dark: $blue-dark;
-
-$danger: $red;
-$danger-dark: $red-dark;
-
-
-
-
-/* CSS SELECTORS ..................................................................... */
-/* unclassed elements ; general website style/format */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* CSS SELECTORS ............................................................ */
+/* unclassed elements; general website style/format */
 html {
   width: 100%;
   height: 100%;
@@ -326,44 +290,24 @@ code {
   color: #00ACC1; }
 
 /* OBJECTS ...................................................................*/
-/* abstract classes ; custom website style/format */
+/* abstract classes; custom website style/format */
 /* for custom style/format, assign these classes to HTML tags */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* different margin sizes */
 .no-margin {
   margin: 0; }
 
-.clear-margin {
-  margin-left: 0em;
-  margin-right: 0em; }
-
 .margin-sm {
-  margin-left: 0.425em;
-  margin-bottom: 0.85em;
-  margin-right: 0.425em; }
+  margin-bottom: 0.85em; }
 
 .margin-md {
-  margin-left: 0.8105em;
-  margin-bottom: 1.621em;
-  margin-right: 0.8105em; }
+  margin-bottom: 1.621em; }
 
 .margin-lg {
   margin-bottom: 3.24em; }
 
 .margin-xl {
-  margin-left: 3.75em;
-  margin-bottom: 7.5em;
-  margin-right: 3.75em; }
+  margin-bottom: 7.5em; }
 
-.padding {
-  padding-left: 15px;
-  padding-right: 15px; }
-
-.spacing {
-  margin-left: 15px;
-  margin-right: 15px; }
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~ */
 .no-padding {
   padding: 0; }
 
@@ -378,10 +322,10 @@ code {
   color: #ddd; }
 
 .grey {
-  background-color: #E3E3E3;
+  background-color: #ECECEC;
   padding: 0.81em 0; }
 
-/* -webkit-animation and animation are a set ; they allow animations in CSS */
+/* -webkit-animation and animation are a set; they allow animations in CSS */
 .fade-animate.ng-hide-remove, .face.ng-show-add {
   -webkit-animation: fadeIn 0.3s;
   animation: fadeIn 0.3s; }
@@ -406,10 +350,6 @@ code {
 
 .text-document .caption {
   font-style: italic; }
-
-.vcenter {
-  display: flex;
-  align-items: center; }
 
 /* COMPONENTS ................................................................*/
 /* Specific components */

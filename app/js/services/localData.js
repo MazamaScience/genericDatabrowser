@@ -12,6 +12,7 @@
   function DataService() {
 
     var request = {
+      language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
       trigFunction: "cos",
@@ -56,7 +57,7 @@
 
     var factory = {
       request: request,
-      forms: forms,
+      forms: forms
     };
     
     return factory;
