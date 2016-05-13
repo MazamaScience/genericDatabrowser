@@ -1,7 +1,15 @@
-// Main JS file.
-// Registers an AngularJS module, to which we'll add our controllers, services, directives, and filters.
-
-//JS code follows many of the guidelines specified at https://github.com/johnpapa/angular-styleguide
+/* ==============================================================================
+ * app.js -- Main application file.
+ * 
+ * This chunk performs the following actions:
+ *  * initialize the angular module
+ *  * define routing behavior with ui.router
+ * 
+ * The 'gulp' utility will concatenate and minify this and other javascript code
+ * and place in the app/dist/ directory as per directions in gulpfile.js.
+ * 
+ * Code style mostly follows: https://github.com/johnpapa/angular-styleguide
+ */
 
 (function() {
   'use strict';
@@ -121,65 +129,6 @@
 
 })();
 
-// Creates a full page popup that fades out when clicked
-// Relies on CSS rules from Mazama_databrowser_base.css
-// There should be no need to make changes to this
-
-angular.module('App')
-
-	.directive('selectMenu', ['$compile', function ($compile) {
-
-    return {
-      restrict: 'E',		// Is an element <popup> </popup>
-      transclude: true,		// Allows HTML content inside
-      scope: {
-        model: '=',
-        options: '='
-      },
-      template: '<div class="btn-group" uib-dropdown><button type="button" class="btn btn-default btn-block" uib-dropdown-toggle>{{getText(model)}} <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li ng-repeat="opt in options" ng-click="click(opt)"><a>{{opt.text}}</a></li></ul></div>',
-      link: function($scope, ele, atr) {
-
-        var options = $scope.options;
-
-        $scope.getText = function(m) {
-          for (var i=0; i<options.length; i++) {
-            if (options[i].value === m) {
-              return options[i].text;
-            }
-          }
-          return "";
-        };
-
-        $scope.click = function(opt) { 
-          $scope.model = opt.value;
-        };
-
-        $compile(ele.html())($scope);
-        
-      }
-    };
-
-  }]);
-// Creates a full page popup that fades out when clicked
-// Relies on CSS rules from Mazama_databrowser_base.css
-// There should be no need to make changes to this
-
-angular.module('App')
-
-	.directive('popup', function () {
-
-    return {
-      restrict: 'E',		// Is an element <popup> </popup>
-      transclude: true,		// Allows HTML content inside
-      scope: {
-        visible: '='		// Binds it to some boolean attribute, will show when true
-        					// Because this is binded with "=" when the popup is clicked
-        					// The external variable this is bound to will change to false
-      },
-      template: '<div class="popup-wrapper" ng-click="visible=false" ng-class="{visible: visible}"><div class="row popup" ng-transclude></div></div>'
-    };
-
-  });
 // I store all of the in memory data here. Controllers pull from and modify
 // this data.
 
@@ -324,6 +273,97 @@ angular.module('App')
       return (request.then(success, error));
     }
 
+
+  }
+
+})();
+/* ==============================================================================
+ * directives/selectMenu.js -- Drop-down select menu.
+ *
+ * Relies on CSS rules from app/css/2_reset.scss
+ *
+ * USAGE:
+ * <select-menu model="MainCtrl.request.lineColor" options="MainCtrl.forms.lineColors"></select-menu>
+ */
+
+(function() {
+  'use strict';
+
+angular.module('App')
+	.directive('selectMenu', selectMenu);
+
+  // Dependency Injection:
+  //   $compile -- Compiles an HTML string or DOM into a template and produces a
+  //               template function, which can then be used to link scope and
+  //               the template together.
+  selectMenu.$inject = ['$compile'];
+
+  function selectMenu($compile) {
+
+    var directive = {
+      restrict: 'E',		// Is an element <popup> </popup>
+      transclude: true,		// Allows HTML content inside
+      scope: {
+        model: '=',
+        options: '='
+      },
+      template: '<div class="btn-group" uib-dropdown><button type="button" class="btn btn-default btn-block" uib-dropdown-toggle>{{getText(model)}} <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li ng-repeat="opt in options" ng-click="click(opt)"><a>{{opt.text}}</a></li></ul></div>',
+      link: compileTemplate
+    };
+
+    return directive;
+
+    // Compile the template with information from scope
+    function compileTemplate($scope, ele, atr) {
+
+      var options = $scope.options;
+
+      $scope.getText = function(m) {
+        for (var i=0; i<options.length; i++) {
+          if (options[i].value === m) {
+            return options[i].text;
+          }
+        }
+        return "";
+      };
+
+      $scope.click = function(opt) { 
+        $scope.model = opt.value;
+      };
+
+      $compile(ele.html())($scope);
+      
+    }
+
+  }
+
+})();
+/* ==============================================================================
+ * directives/popup.js -- Full page popup that fades out when clicked.
+ *
+ * Relies on CSS rules from Mazama_databrowser_base.css
+ */
+
+(function() {
+  'use strict';
+
+  angular.module('App')
+  	.directive('popup', popup);
+
+  function popup() {
+
+    var directive = {
+      restrict: 'E',		// Is an element <popup> </popup>
+      transclude: true,	// Allows HTML content inside
+      scope: {
+        visible: '='		// Binds it to some boolean attribute, will show when true
+        					      // Because this is binded with "=" when the popup is clicked
+        					      // The external variable this is bound to will change to false
+      },
+      template: '<div class="popup-wrapper" ng-click="visible=false" ng-class="{visible: visible}"><div class="row popup" ng-transclude></div></div>'
+    };
+
+    return directive;
 
   }
 

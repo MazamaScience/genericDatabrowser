@@ -1,7 +1,15 @@
-// Main JS file.
-// Registers an AngularJS module, to which we'll add our controllers, services, directives, and filters.
-
-//JS code follows many of the guidelines specified at https://github.com/johnpapa/angular-styleguide
+/* ==============================================================================
+ * app.js -- Main application file.
+ * 
+ * This chunk performs the following actions:
+ *  * initialize the angular module
+ *  * define routing behavior with ui.router
+ * 
+ * The 'gulp' utility will concatenate and minify this and other javascript code
+ * and place in the app/dist/ directory as per directions in gulpfile.js.
+ * 
+ * Code style mostly follows: https://github.com/johnpapa/angular-styleguide
+ */
 
 (function() {
   'use strict';
