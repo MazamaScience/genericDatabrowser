@@ -1,5 +1,7 @@
-// Service for making JSON requests. Also provides access to the request status, i.e. 
-// loading or error messages
+/* ============================================================================
+ * services/requestService.js -- Service for handling CGI request/response.
+ * 
+*/
 
 (function() {
   'use strict';
@@ -7,33 +9,51 @@
   angular.module('App')
     .factory('RequestService', RequestService);
 
+  // Dependency Injection:
+  //   http and q -- requesting data
   RequestService.$inject = ['$http', '$q'];
     
   function RequestService($http, $q) {
 
-    // Databrowser cgi url, this is always the same
-    var url = '/cgi-bin/__DATABROWSER__.cgi?';
+    // ------------------------------------------------------------------------
+    //     BEGIN RequestService definition     --------------------------------
+    
+    var Factory = this;
+    
+    // Data service state variables
+    // NOTE:  __DATABROWSER__ is replaced during the Makefile installation process
+    Factory.url = '/cgi-bin/__DATABROWSER__.cgi?';  // databrowser cgi url
 
-    // Current status
-    var status = {
-      loading: false,
-      error: false
-    };
+    // DataService public methods
+    Factory.status = getStatus; 
+    Factory.get = get;
 
-    var factory = {
-      status: getStatus,
-      get: get
-    };
+    return Factory;
 
-    return factory;
-
-    ///////////////
-    ///////////////
-    ///////////////
+    //     END RequestService definition     ----------------------------------
+    // ------------------------------------------------------------------------
 
     function getStatus() {
-      return status;
+      return {
+        loading: false,
+        error: false
+      };
     }
+
+    // Make a json request with an object of data
+    function get(data) {
+      Factory.status.loading = true;
+      Factory.status.error = false;
+      var request = $http({
+        method: 'POST',
+        url: Factory.url + serialize(data)
+      });
+      return (request.then(handleSuccess, handleError));
+    }
+
+    // ------------------------------------------------------------------------
+    //     BEGIN internal functions     ---------------------------------------
+    // ------------------------------------------------------------------------
 
     // Serialize object
     function serialize(obj) {
@@ -48,31 +68,20 @@
     }
 
     // Error handling (this won't usually happen)
-    function error(response) {
+    function handleError(response) {
       return ($q.reject(response.data.message));
     }
 
-    // Success handling. This includes handling errors that are
-    // successfuly returned.
-    function success(response) {
-      status.loading = false;
+    // Success handling. This includes handling errors that are successfuly returned.
+    function handleSuccess(response) {
+      Factory.status.loading = false;
       if (response.data.status === "ERROR") {
-        status.error = response.data.error_text;
+        Factory.status.error = response.data.error_text;
         return ($q.reject(response.data.error_text));
       }
       return (response);
     }
 
-    // Make a json request with an object of data
-    function get(data) {
-      status.loading = true;
-      status.error = false;
-      var request = $http({
-        method: 'POST',
-        url: url + serialize(data)
-      });
-      return (request.then(success, error));
-    }
 
 
   }

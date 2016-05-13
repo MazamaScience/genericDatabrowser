@@ -1,5 +1,9 @@
-// I store all of the in memory data here. Controllers pull from and modify
-// this data.
+/* ============================================================================
+ * services/dataService.js -- Service containing state data.
+ *
+ * Services are always 'singleton'. Controllers pull from and modify this data.
+ * 
+ */
 
 (function() {
   'use strict';
@@ -7,11 +11,20 @@
   angular.module('App')
     .factory('DataService', DataService);
 
+  // Dependency Injection:
+  //   none
   DataService.$inject = [];
 
   function DataService() {
 
-    var request = {
+    // ------------------------------------------------------------------------
+    //     BEGIN DataService definition     -----------------------------------
+    
+    var Factory = this;
+    
+    // Data service state variables
+
+    Factory.request = {
       language: "en",
       plotWidth: 700,
       plotType: "TrigFunctions",
@@ -20,7 +33,7 @@
       cycles: 3
     };
 
-    var forms = {
+    Factory.forms = {
       trigFunctions: [{
         text: "Cosine",
         value: "cos"
@@ -54,13 +67,11 @@
         value: "blue"
       }]
     };
-
-    var factory = {
-      request: request,
-      forms: forms
-    };
     
-    return factory;
+    return Factory;
+
+    //     END DataService definition     -------------------------------------
+    // ------------------------------------------------------------------------
 
   }
 

@@ -1,7 +1,7 @@
 /* ==============================================================================
  * directives/popup.js -- Full page popup that fades out when clicked.
  *
- * Relies on CSS rules from Mazama_databrowser_base.css
+ * Relies on CSS rules from app/css/5_components.scss
  */
 
 (function() {

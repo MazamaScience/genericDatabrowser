@@ -42,9 +42,16 @@
 
 })();
 
-// Main controller
-// Exposes the model to the template
-// Contains plot options, and overlay options
+/* ==============================================================================
+ * controllers/main.js -- Controller for app/html/dmainhtml
+ *
+ * From https://docs.angularjs.org/guide/controller:
+ *   Use controllers to:
+ *     * Set up the initial state of the $scope object.
+ *     * Add behavior to the $scope object.
+ *
+ * This controller controls the menus and options in the UI.
+ */
 
 (function() {
   'use strict';
@@ -52,67 +59,63 @@
   angular.module('App')
     .controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$scope', 'DataService', 'RequestService', '$location'];
+  // Dependency Injection:
+  //   scope -- AngularJS binding between 'main DOM and this controller
+  //   location -- pparses the URL in the browser address bar
+  //   DataService -- stores overall state and settings
+  //   RequestService -- handles request/response with the databrowser CGI
+  MainCtrl.$inject = ['$scope', '$location', 'DataService', 'RequestService'];
 
-  function MainCtrl($scope, DataService, RequestService, $location) {
+  function MainCtrl($scope, $location, DataService, RequestService) {
 
-    // vm stands for view model
+    // ------------------------------------------------------------------------
+    //     BEGIN MainCtrl definition     --------------------------------------
+
+    // view model
     var vm = this;
 
-    vm.request = DataService.request;
-
-    vm.forms = DataService.forms;
-
-    vm.updatePlot = updatePlot;                 
+    // MainCtrl internal data
+    vm.request = DataService.request;           //  
+    vm.forms = DataService.forms;               //
     vm.status = RequestService.status;          // request status and results
+
+    // MainCtrl public methods
+    vm.updatePlot = updatePlot;                 //
     vm.popup = { visible: false, url: null };   // plot zoom popup object
 
-    // Initial plot
+    //     END MainCtrl definition     ----------------------------------------
+    // ------------------------------------------------------------------------
+
+
+    // Initialize with a plot
     updatePlot();
 
-    ///////////////
-    // FUNCTIONS
-    ///////////////
-
-    // Make request
-    function updatePlot() {
-      RequestService.get(DataService.request)
-        .then(function(result) {
-          DataService.result = result;
-        });
-    }
-
-    ///////////////
-    // SCOPE
-    ///////////////
-
-    // Watched for changes in plotURL, which translates to this function firing
-    // whenever a successful request is made
+    // Watch for changes in DataService.result.
+    // Modify urls whenever a successful request is made.
     $scope.$watch(function() {
       return DataService.result;
     }, function() {
-      if(DataService.result) {
+      if (DataService.result) {
         vm.url = DataService.result.data.rel_base + ".png";
         vm.popup.url = vm.url;
       }
     });
 
-    // When URL params change apply those changes to the request object
+    // Watch for changes in the browser location bar.
+    // When URL params change apply those changes to the request object.
     $scope.$watch(function() {
       return $location.search();
     }, function(params, old) {
-
-      // If param is an attribute of request, add it's 
-      // value to request
+      // If param is an attribute of request, add it's value to request
       for (var attr in params) {
         if (vm.request.hasOwnProperty(attr)) {
           vm.request[attr] = params[attr];
         }
       }
+    }, true); // See 'objectEqualitiy' at https://docs.angularjs.org/api/ng/type/$rootScope.Scope
 
-    }, true);
-
-    // When the request object changes apply those changes to the URL params
+    // Watch for changes in the request.
+    // Apply those changes to the URL params.
     $scope.$watch(function() { 
       return vm.request; 
     }, function(params) {
@@ -123,160 +126,26 @@
       }
       $location.search(par);
 
-    }, true);
+    }, true); // See 'objectEqualitiy' at https://docs.angularjs.org/api/ng/type/$rootScope.Scope
 
-  }
 
-})();
+    // ------------------------------------------------------------------------
+    //     BEGIN internal functions     ---------------------------------------
+    // ------------------------------------------------------------------------
 
-// I store all of the in memory data here. Controllers pull from and modify
-// this data.
-
-(function() {
-  'use strict';
-
-  angular.module('App')
-    .factory('DataService', DataService);
-
-  DataService.$inject = [];
-
-  function DataService() {
-
-    var request = {
-      language: "en",
-      plotWidth: 700,
-      plotType: "TrigFunctions",
-      trigFunction: "cos",
-      lineColor: "black",
-      cycles: 3
-    };
-
-    var forms = {
-      trigFunctions: [{
-        text: "Cosine",
-        value: "cos"
-      }, {
-        text: "Sine",
-        value: "sin"
-      }, {
-        text: "Tangent",
-        value: "tan"
-      }, {
-        text: "Arc cosine",
-        value: "acos"
-      }, {
-        text: "Arc sine",
-        value: "asin"
-      }, {
-        text: "Arc tangent",
-        value: "atan"
-      }, {
-        text: "Generate Error",
-        value: "error"
-      }],
-      lineColors: [{
-        text: "Black",
-        value: "black"
-      }, {
-        text: "Red",
-        value: "red"
-      }, {
-        text: "Blue",
-        value: "blue"
-      }]
-    };
-
-    var factory = {
-      request: request,
-      forms: forms
-    };
-    
-    return factory;
-
-  }
-
-})();
-
-// Service for making JSON requests. Also provides access to the request status, i.e. 
-// loading or error messages
-
-(function() {
-  'use strict';
-
-  angular.module('App')
-    .factory('RequestService', RequestService);
-
-  RequestService.$inject = ['$http', '$q'];
-    
-  function RequestService($http, $q) {
-
-    // Databrowser cgi url, this is always the same
-    var url = '/cgi-bin/__DATABROWSER__.cgi?';
-
-    // Current status
-    var status = {
-      loading: false,
-      error: false
-    };
-
-    var factory = {
-      status: getStatus,
-      get: get
-    };
-
-    return factory;
-
-    ///////////////
-    ///////////////
-    ///////////////
-
-    function getStatus() {
-      return status;
-    }
-
-    // Serialize object
-    function serialize(obj) {
-      var str = "";
-      for (var key in obj) {
-        if (str !== "") {
-          str += "&";
-        }
-        str += key + "=" + obj[key];
-      }
-      return str;
-    }
-
-    // Error handling (this won't usually happen)
-    function error(response) {
-      return ($q.reject(response.data.message));
-    }
-
-    // Success handling. This includes handling errors that are
-    // successfuly returned.
-    function success(response) {
-      status.loading = false;
-      if (response.data.status === "ERROR") {
-        status.error = response.data.error_text;
-        return ($q.reject(response.data.error_text));
-      }
-      return (response);
-    }
-
-    // Make a json request with an object of data
-    function get(data) {
-      status.loading = true;
-      status.error = false;
-      var request = $http({
-        method: 'POST',
-        url: url + serialize(data)
-      });
-      return (request.then(success, error));
+    // Make request for a new plot
+    function updatePlot() {
+      RequestService.get(DataService.request)
+        .then(function(result) {
+          DataService.result = result;
+        });
     }
 
 
   }
 
 })();
+
 /* ==============================================================================
  * directives/selectMenu.js -- Drop-down select menu.
  *
@@ -301,7 +170,7 @@ angular.module('App')
   function selectMenu($compile) {
 
     var directive = {
-      restrict: 'E',		// Is an element <popup> </popup>
+      restrict: 'E',		  // Is an element <select-menu> </select-menu>
       transclude: true,		// Allows HTML content inside
       scope: {
         model: '=',
@@ -341,7 +210,7 @@ angular.module('App')
 /* ==============================================================================
  * directives/popup.js -- Full page popup that fades out when clicked.
  *
- * Relies on CSS rules from Mazama_databrowser_base.css
+ * Relies on CSS rules from app/css/5_components.scss
  */
 
 (function() {
@@ -364,6 +233,174 @@ angular.module('App')
     };
 
     return directive;
+
+  }
+
+})();
+/* ============================================================================
+ * services/dataService.js -- Service containing state data.
+ *
+ * Services are always 'singleton'. Controllers pull from and modify this data.
+ * 
+ */
+
+(function() {
+  'use strict';
+
+  angular.module('App')
+    .factory('DataService', DataService);
+
+  // Dependency Injection:
+  //   none
+  DataService.$inject = [];
+
+  function DataService() {
+
+    // ------------------------------------------------------------------------
+    //     BEGIN DataService definition     -----------------------------------
+    
+    var Factory = this;
+    
+    // Data service state variables
+
+    Factory.request = {
+      language: "en",
+      plotWidth: 700,
+      plotType: "TrigFunctions",
+      trigFunction: "cos",
+      lineColor: "black",
+      cycles: 3
+    };
+
+    Factory.forms = {
+      trigFunctions: [{
+        text: "Cosine",
+        value: "cos"
+      }, {
+        text: "Sine",
+        value: "sin"
+      }, {
+        text: "Tangent",
+        value: "tan"
+      }, {
+        text: "Arc cosine",
+        value: "acos"
+      }, {
+        text: "Arc sine",
+        value: "asin"
+      }, {
+        text: "Arc tangent",
+        value: "atan"
+      }, {
+        text: "Generate Error",
+        value: "error"
+      }],
+      lineColors: [{
+        text: "Black",
+        value: "black"
+      }, {
+        text: "Red",
+        value: "red"
+      }, {
+        text: "Blue",
+        value: "blue"
+      }]
+    };
+    
+    return Factory;
+
+    //     END DataService definition     -------------------------------------
+    // ------------------------------------------------------------------------
+
+  }
+
+})();
+
+/* ============================================================================
+ * services/requestService.js -- Service for handling CGI request/response.
+ * 
+*/
+
+(function() {
+  'use strict';
+
+  angular.module('App')
+    .factory('RequestService', RequestService);
+
+  // Dependency Injection:
+  //   http and q -- requesting data
+  RequestService.$inject = ['$http', '$q'];
+    
+  function RequestService($http, $q) {
+
+    // ------------------------------------------------------------------------
+    //     BEGIN RequestService definition     --------------------------------
+    
+    var Factory = this;
+    
+    // Data service state variables
+    // NOTE:  __DATABROWSER__ is replaced during the Makefile installation process
+    Factory.url = '/cgi-bin/__DATABROWSER__.cgi?';  // databrowser cgi url
+
+    // DataService public methods
+    Factory.status = getStatus; 
+    Factory.get = get;
+
+    return Factory;
+
+    //     END RequestService definition     ----------------------------------
+    // ------------------------------------------------------------------------
+
+    function getStatus() {
+      return {
+        loading: false,
+        error: false
+      };
+    }
+
+    // Make a json request with an object of data
+    function get(data) {
+      Factory.status.loading = true;
+      Factory.status.error = false;
+      var request = $http({
+        method: 'POST',
+        url: Factory.url + serialize(data)
+      });
+      return (request.then(handleSuccess, handleError));
+    }
+
+    // ------------------------------------------------------------------------
+    //     BEGIN internal functions     ---------------------------------------
+    // ------------------------------------------------------------------------
+
+    // Serialize object
+    function serialize(obj) {
+      var str = "";
+      for (var key in obj) {
+        if (str !== "") {
+          str += "&";
+        }
+        str += key + "=" + obj[key];
+      }
+      return str;
+    }
+
+    // Error handling (this won't usually happen)
+    function handleError(response) {
+      return ($q.reject(response.data.message));
+    }
+
+    // Success handling. This includes handling errors that are successfuly returned.
+    function handleSuccess(response) {
+      Factory.status.loading = false;
+      if (response.data.status === "ERROR") {
+        Factory.status.error = response.data.error_text;
+        return ($q.reject(response.data.error_text));
+      }
+      return (response);
+    }
+
+
 
   }
 

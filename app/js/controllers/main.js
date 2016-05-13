@@ -1,6 +1,13 @@
-// Main controller
-// Exposes the model to the template
-// Contains plot options, and overlay options
+/* ==============================================================================
+ * controllers/main.js -- Controller for app/html/dmainhtml
+ *
+ * From https://docs.angularjs.org/guide/controller:
+ *   Use controllers to:
+ *     * Set up the initial state of the $scope object.
+ *     * Add behavior to the $scope object.
+ *
+ * This controller controls the menus and options in the UI.
+ */
 
 (function() {
   'use strict';
@@ -8,67 +15,63 @@
   angular.module('App')
     .controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$scope', 'DataService', 'RequestService', '$location'];
+  // Dependency Injection:
+  //   scope -- AngularJS binding between 'main DOM and this controller
+  //   location -- pparses the URL in the browser address bar
+  //   DataService -- stores overall state and settings
+  //   RequestService -- handles request/response with the databrowser CGI
+  MainCtrl.$inject = ['$scope', '$location', 'DataService', 'RequestService'];
 
-  function MainCtrl($scope, DataService, RequestService, $location) {
+  function MainCtrl($scope, $location, DataService, RequestService) {
 
-    // vm stands for view model
+    // ------------------------------------------------------------------------
+    //     BEGIN MainCtrl definition     --------------------------------------
+
+    // view model
     var vm = this;
 
-    vm.request = DataService.request;
-
-    vm.forms = DataService.forms;
-
-    vm.updatePlot = updatePlot;                 
+    // MainCtrl internal data
+    vm.request = DataService.request;           //  
+    vm.forms = DataService.forms;               //
     vm.status = RequestService.status;          // request status and results
+
+    // MainCtrl public methods
+    vm.updatePlot = updatePlot;                 //
     vm.popup = { visible: false, url: null };   // plot zoom popup object
 
-    // Initial plot
+    //     END MainCtrl definition     ----------------------------------------
+    // ------------------------------------------------------------------------
+
+
+    // Initialize with a plot
     updatePlot();
 
-    ///////////////
-    // FUNCTIONS
-    ///////////////
-
-    // Make request
-    function updatePlot() {
-      RequestService.get(DataService.request)
-        .then(function(result) {
-          DataService.result = result;
-        });
-    }
-
-    ///////////////
-    // SCOPE
-    ///////////////
-
-    // Watched for changes in plotURL, which translates to this function firing
-    // whenever a successful request is made
+    // Watch for changes in DataService.result.
+    // Modify urls whenever a successful request is made.
     $scope.$watch(function() {
       return DataService.result;
     }, function() {
-      if(DataService.result) {
+      if (DataService.result) {
         vm.url = DataService.result.data.rel_base + ".png";
         vm.popup.url = vm.url;
       }
     });
 
-    // When URL params change apply those changes to the request object
+    // Watch for changes in the browser location bar.
+    // When URL params change apply those changes to the request object.
     $scope.$watch(function() {
       return $location.search();
     }, function(params, old) {
-
-      // If param is an attribute of request, add it's 
-      // value to request
+      // If param is an attribute of request, add it's value to request
       for (var attr in params) {
         if (vm.request.hasOwnProperty(attr)) {
           vm.request[attr] = params[attr];
         }
       }
+    }, true); // See 'objectEqualitiy' at https://docs.angularjs.org/api/ng/type/$rootScope.Scope
 
-    }, true);
-
-    // When the request object changes apply those changes to the URL params
+    // Watch for changes in the request.
+    // Apply those changes to the URL params.
     $scope.$watch(function() { 
       return vm.request; 
     }, function(params) {
@@ -79,7 +82,21 @@
       }
       $location.search(par);
 
-    }, true);
+    }, true); // See 'objectEqualitiy' at https://docs.angularjs.org/api/ng/type/$rootScope.Scope
+
+
+    // ------------------------------------------------------------------------
+    //     BEGIN internal functions     ---------------------------------------
+    // ------------------------------------------------------------------------
+
+    // Make request for a new plot
+    function updatePlot() {
+      RequestService.get(DataService.request)
+        .then(function(result) {
+          DataService.result = result;
+        });
+    }
+
 
   }
 
